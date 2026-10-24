@@ -24,9 +24,9 @@ def repl():  # define o que é o repl - ou seja, toda a interatividade pelo term
                 print("comp  -> inicia a compactação : TEP")
                 print("enc   -> inicia a encriptação : TEP")
                 print("sair  -> finaliza o terminal interativo")
-                continue  # apos o print ele retorna ao estado de leitura doq o usuario digitou
+                continue  # apos o print ele retorna ao estado de leitura, ou seja aguarda a entrada do usuario
 
-            exec(entrada, namespace)  # realmente executa o codigo
+            exec(entrada, namespace)  # executa o codigo sim qualquer codigo python... kkk
 
         except KeyboardInterrupt:
             # caso o usuario cancele com um Ctrl C, não acontece de ter um erro feio, nós tratamos isso.
