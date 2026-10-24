@@ -1,5 +1,21 @@
 import traceback
 
+VERSOES = {
+    "interface": "0.1.0",  # YkaruusMP4
+    "encriptacao": "0.0.0",  # YkaruusMP4 - TEP
+    "compressao": "0.0.0",  # oEdicode   - TEP
+    "leitura": "0.0.0",  # oEdicode   - TEP
+}
+VERSAO_TOTAL = "0.1.0.0"
+
+
+def mostrar_versoes():
+    print(f"TCTC v{VERSAO_TOTAL}")
+    print(f"   interface:   {VERSOES['interface']}")
+    print(f"   encriptação: {VERSOES['encriptacao']}")
+    print(f"   compressão:  {VERSOES['compressao']}")
+    print(f"   leitura:     {VERSOES['leitura']}")
+
 
 def repl():  # define o que é o repl - ou seja, toda a interatividade pelo terminal.
     print("TCTC - ferramenta de compressão e encriptação.")
@@ -25,6 +41,10 @@ def repl():  # define o que é o repl - ou seja, toda a interatividade pelo term
                 print("enc   -> inicia a encriptação : TEP")
                 print("sair  -> finaliza o terminal interativo")
                 continue  # apos o print ele retorna ao estado de leitura, ou seja aguarda a entrada do usuario
+
+            if entrada.strip() == "versoes":
+                mostrar_versoes()
+                continue
 
             exec(entrada, namespace)  # executa o codigo sim qualquer codigo python... kkk
 
