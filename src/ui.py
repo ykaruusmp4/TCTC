@@ -18,7 +18,12 @@ def repl():  # define o que é o repl - ou seja, toda a interatividade pelo term
                 continue  # se o usuario não tiver digitado nada, ele pede a entrada denovo
 
             if entrada.strip() == "ajuda":
-                print("TEP - Trabalho em Progresso!")
+                print("Janela de Ajuda TCTC - Comandos:")
+                print("ajuda -> mostra essa janela")
+                print("ler   -> lê os bytes de um arquivo : TEP")
+                print("comp  -> inicia a compactação : TEP")
+                print("enc   -> inicia a encriptação : TEP")
+                print("sair  -> finaliza o terminal interativo")
                 continue  # apos o print ele retorna ao estado de leitura doq o usuario digitou
 
             exec(entrada, namespace)  # realmente executa o codigo
