@@ -1,61 +1,29 @@
-# $ YkarrusMP4 - Interface $ #
-
-import traceback
-
-VERSOES = {
-    "interface": "0.1.0",  # YkaruusMP4
-    "encriptacao": "0.0.0",  # YkaruusMP4 - TEP
-    "compressao": "0.0.0",  # oEdicode   - TEP
-    "leitura": "0.0.0",  # oEdicode   - TEP
-}
-VERSAO_TOTAL = "0.1.0.0"
+from comandos import COMANDOS
 
 
-def mostrar_versoes():
-    print(f"TCTC v{VERSAO_TOTAL}")
-    print(f"   interface:   {VERSOES['interface']}")
-    print(f"   encriptação: {VERSOES['encriptacao']}")
-    print(f"   compressão:  {VERSOES['compressao']}")
-    print(f"   leitura:     {VERSOES['leitura']}")
-
-
-def repl():  # define o que é o repl - ou seja, toda a interatividade pelo terminal.
+def repl():
     print("TCTC - ferramenta de compressão e encriptação.")
     print("linha de comando interativa.")
 
-    namespace = {}  # é tipo um dicionario que faz com que as variaveis não se percam entre as execuções
-
     while True:
         try:
-            entrada = input("> ")  # lê o que o usario digitou e armazena
-
-            if entrada.strip() == "sair":
-                break  # se a entrada, digitada pelo usuario for 'sair' ele finaliza o processo
-
-            if not entrada.strip():
-                continue  # se o usuario não tiver digitado nada, ele pede a entrada denovo
-
-            if entrada.strip() == "ajuda":
-                print("Janela de Ajuda TCTC - Comandos:")
-                print("ajuda -> mostra essa janela")
-                print("ler   -> lê os bytes de um arquivo : TEP")
-                print("comp  -> inicia a compactação : TEP")
-                print("enc   -> inicia a encriptação : TEP")
-                print("sair  -> finaliza o terminal interativo")
-                continue  # apos o print ele retorna ao estado de leitura, ou seja aguarda a entrada do usuario
-
-            if entrada.strip() == "versoes":
-                mostrar_versoes()
+            entrada = input("> ").strip()
+            if not entrada:
                 continue
 
-            exec(entrada, namespace)  # executa o codigo sim qualquer codigo python... kkk
+            nome, *args = entrada.split()
+            comando = COMANDOS.get(nome)
+
+            if comando is None:
+                print(f"Comando desconhecido: '{nome}'. Digite 'ajuda'.")
+                continue
+
+            if comando(args) == "sair":
+                break
 
         except KeyboardInterrupt:
-            # caso o usuario cancele com um Ctrl C, não acontece de ter um erro feio, nós tratamos isso.
             print("\n\n REPL encerrado pelo usuario.")
             break
 
-        except Exception as erro:  # printa caso o comando não esteja entre nenhuma desses 3 casos
-            nome_do_erro = type(erro).__name__  # pega a classe do erro
-            print(f"Erro de Comando: [{nome_do_erro}] -> {erro}")
-            # removi o traceback.print_exc() pq ele dava todo um diagnostico com a linha e tals, e pra tratamento de erro, é só poluição, é mais util em caso de debug
+        except Exception as erro:
+            print(f"Erro de Comando: [{type(erro).__name__}] -> {erro}")
