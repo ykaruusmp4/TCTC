@@ -23,6 +23,12 @@ def repl():  # define o que é o repl - ou seja, toda a interatividade pelo term
 
             exec(entrada, namespace)  # realmente executa o codigo
 
-        except Exception:  # printa caso o comando não esteja entre nenhuma desses 3 casos
-            print("Erro no comando digital")
-            traceback.print_exc()
+        except KeyboardInterrupt:
+            # caso o usuario cancele com um Ctrl C, não acontece de ter um erro feio, nós tratamos isso.
+            print("\n\n REPL encerrado pelo usuario.")
+            break
+
+        except Exception as erro:  # printa caso o comando não esteja entre nenhuma desses 3 casos
+            nome_do_erro = type(erro).__name__  # pega a classe do erro
+            print(f"Erro de Comando: [{nome_do_erro}] -> {erro}")
+            # removi o traceback.print_exc() pq ele dava todo um diagnostico com a linha e tals, e pra tratamento de erro, é só poluição, é mais util em caso de debug
